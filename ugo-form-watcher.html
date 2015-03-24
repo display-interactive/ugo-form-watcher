@@ -1,0 +1,100 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<polymer-element name="ugo-form-watcher" attributes="selector itemSelector itemAttribute idAttribute event">
+    <template>
+        <content id="items" select="{{itemSelector}}"></content>
+    </template>
+    <script>
+        Polymer('ugo-form-watcher', {
+            selector: null,
+            itemSelector: '[once-form-change]',
+            itemAttribute: 'once-form-change',
+            idAttribute: 'data-watch-id',
+            event: 'change keyup',
+
+            /**
+             * init
+             */
+            ready: function() {
+                this.form = document.querySelector(this.selector);
+                this.markItems();
+                this.addListeners();
+                this.triggered = [];
+            },
+
+            /**
+             * Mark items with an id to get uniqueness of elements
+             */
+            markItems: function() {
+                this.forEachItems(function(item) {
+                    item.setAttribute(this.idAttribute, this.getId());
+                }.bind(this));
+            },
+
+            /**
+             * @param {Event} event
+             */
+            onFormEventHandler: function(event) {
+                var id, attr;
+                this.forEachItems(function(item) {
+                    if (-1 === this.events.indexOf(event.type)) return;
+
+                    id = item.getAttribute(this.idAttribute);
+                    if (-1 == this.triggered.indexOf(id)) {
+                        attr = item.getAttribute(this.itemAttribute);
+
+                        if (attr) {
+                            item.classList.toggle(attr);
+                            this.triggered.push(id);
+                        }
+                    }
+                }.bind(this));
+            },
+
+            /**
+             * Returns an array of all items.
+             *
+             * @property items
+             */
+            get items() {
+                return this.$.items.getDistributedNodes();
+            },
+
+            /**
+             * ForEach items
+             */
+            forEachItems: function(callback) {
+                [].forEach.call(this.items, callback);
+            },
+
+            /**
+             * Get an id to set the uniqueness of an element
+             *
+             * @return {string}
+             */
+            getId: function() {
+                return Math.random().toString(36).substring(7);
+            },
+
+            /**
+             * Add listeners
+             */
+            addListeners: function() {
+                var onFormEvent = this.onFormEventHandler.bind(this);
+                for (var i = 0; i < this.events.length; i++) {
+                    this.form.addEventListener(this.events[i], onFormEvent, false);
+                }
+            },
+
+            /**
+             * get parsed events
+             *
+             * @returns {Array}
+             * @property events
+             */
+            get events() {
+                return this.event.split(' ');
+            }
+        });
+    </script>
+</polymer-element>

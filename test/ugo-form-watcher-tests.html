@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>ugo-form-watcher</title>
+
+    <!-- Import dependencies -->
+    <script src="../../webcomponentsjs/webcomponents.min.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../../polymer/polymer.html">
+    <link rel="import" href="../ugo-form-watcher.html">
+</head>
+
+<body>
+
+<form id="form1">
+    <ugo-form-watcher id="typical" selector="#form1">
+        <button id="btn" type="submit" once-form-change="hide" class="btn btn-default btn-primary ml20 mt20 hide">save</button>
+
+        <h6 id="text" class="text-success ml20" once-form-change="hide">form.updatedAt</h6>
+        <h6 class="text-danger ml20 hide" once-form-change="hide">form.mustUpdate</h6>
+    </ugo-form-watcher>
+</form>
+
+<script>
+    suite('<ugo-form-watcher>', function() {
+        var el = document.getElementById('typical');
+
+        test('exists', function() {
+            assert.isNotNull(el);
+        });
+
+        test('markItems (getId)', function() {
+            var id, ids = [];
+            for (var i = 0; i < el.items.length; i++) {
+                id = el.items[i].getAttribute(el.idAttribute);
+                assert.isNotNull(id);
+
+                assert.isTrue(-1 === ids.indexOf(id));
+                ids.push(id);
+            }
+        });
+
+        var _triggerEvent = function(element, eventName) {
+            var event; // The custom event that will be created
+            if (document.createEvent) {
+                event = document.createEvent("HTMLEvents");
+                event.initEvent(eventName, true, true);
+            } else {
+                event = document.createEventObject();
+                event.eventType = eventName;
+            }
+            event.eventName = eventName;
+            if (document.createEvent) {
+                element.dispatchEvent(event);
+            } else {
+                element.fireEvent("on" + event.eventType, event);
+            }
+        };
+
+        var btn = document.getElementById('btn');
+        var txt = document.getElementById('text');
+        test('trigger event', function() {
+            assert.isTrue(btn.classList.contains('hide'));
+            assert.isFalse(txt.classList.contains('hide'));
+            _triggerEvent(el, 'change')
+            assert.isFalse(btn.classList.contains('hide'));
+            assert.isTrue(txt.classList.contains('hide'));
+        });
+    });
+</script>
+
+</body>
+</html>

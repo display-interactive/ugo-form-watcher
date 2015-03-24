@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <meta charset="utf-8">
+    <title>Ugo form watcher demo</title>
+    <script src="../webcomponentsjs/webcomponents.js"></script>
+    <link rel="import" href="ugo-form-watcher.html">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        #container {
+            padding: 100px 20px 0;
+            text-align: center;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .btn-loading {
+            font-size: 40px;
+        }
+
+        .test {
+            font-size: 30em;
+        }
+
+
+    </style>
+</head>
+
+<body unresolved>
+<div id="container">
+    <h1><code>Ugo form watcher with polymer</code> in action:</h1>
+
+    <form id="demo">
+        <input type="text" name="f1" id="f1" />
+        <select name="f2" id="f2">
+            <option value="1">1</option>
+            <option value="2">2</option>
+        </select>
+        <textarea name="f3" id="f3"></textarea>
+
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+
+        <ugo-form-watcher selector="#demo">
+            <button type="submit" once-form-change="hide" once-click="btn-loading" class="btn btn-default btn-primary ml20 mt20 hide">save</button>
+
+            <h6 class="text-success ml20" once-form-change="hide">form.updatedAt</h6>
+            <h6 class="text-danger ml20 hide" once-form-change="hide">form.mustUpdate</h6>
+        </ugo-form-watcher>
+    </form>
+
+    <script>
+        (function() {
+            'use strict';
+
+            var elements = document.querySelectorAll('[once-click]');
+
+            var clickHandler = function() {
+                event.target.removeEventListener('click', clickHandler);
+                event.target.classList.toggle(event.target.getAttribute('once-click'));
+            };
+
+            [].forEach.call(elements, function(el) {
+                el.addEventListener('click', clickHandler);
+            });
+        }());
+    </script>
+</div>
+</body>
+</html>

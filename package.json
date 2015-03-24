@@ -1,0 +1,15 @@
+{
+    "author": {
+        "name": "Florian Roy"
+    },
+    "description": "Polymer element to watch form change",
+    "devDependencies": {
+        "web-component-tester": "~2.0.1"
+    },
+    "name": "ugo-form-watcher",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/display-interactive/ugo-form-watcher.git"
+    },
+    "version": "0.0.1"
+}
