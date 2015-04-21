@@ -1,6 +1,6 @@
 {
     "name": "ugo-form-watcher",
-    "version": "0.0.1",
+    "version": "0.2",
     "authors": [
         "Florian Roy"
     ],
@@ -15,7 +15,7 @@
     ],
     "keywords": ["Polymer", "web-components", "html", "form", "watcher"],
     "dependencies": {
-        "polymer": "Polymer/polymer#^0.5"
+        "polymer": "Polymer/polymer#^0.8.0-rc.6"
     },
     "devDependencies": {
         "web-component-tester": "*"
