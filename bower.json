@@ -1,0 +1,23 @@
+{
+    "name": "ugo-form-watcher",
+    "version": "0.2",
+    "authors": [
+        "Florian Roy"
+    ],
+    "description": "Polymer element to watch form change",
+    "main": "element/*",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "keywords": ["Polymer", "web-components", "html", "form", "watcher"],
+    "dependencies": {
+        "polymer": "Polymer/polymer#^1.1.*"
+    },
+    "devDependencies": {
+        "web-component-tester": "*"
+    }
+}
