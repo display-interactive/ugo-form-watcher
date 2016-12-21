@@ -15,7 +15,7 @@
     ],
     "keywords": ["Polymer", "web-components", "html", "form", "watcher"],
     "dependencies": {
-        "polymer": "Polymer/polymer#^1.1.*"
+        "polymer": "Polymer/polymer#^1.2.*"
     },
     "devDependencies": {
         "web-component-tester": "*"
