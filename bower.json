@@ -5,7 +5,7 @@
         "Florian Roy"
     ],
     "description": "Polymer element to watch form change",
-    "main": "element/*",
+    "main": "ugo-form-watcher.html",
     "ignore": [
         "**/.*",
         "node_modules",
